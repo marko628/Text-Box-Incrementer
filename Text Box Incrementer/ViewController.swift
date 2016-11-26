@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
   
   @IBOutlet weak var amountField: UITextField!
@@ -16,18 +16,47 @@ class ViewController: UIViewController {
   @IBOutlet weak var stepperValue: UILabel!
   
   @IBAction func stepperValueChanged(_ sender: UIStepper) {
-    print("stepper pressed. value is \(stepper.value)")
+    print("stepper changed. value is \(stepper.value)")
     amountField.text = String(describing: stepper.value)
     stepperValue.text = String(describing: stepper.value)
   }
-  
-
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     amountField.text = String(describing: stepper.value)
     stepperValue.text = String(describing: stepper.value)
+    
+    amountField.delegate = self
+    
+    
+  }
+  
+  // MARK: Text Field Delegates
+  func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+    
+    print("in textFieldDidEndEditing()")
+
+  }
+  
+  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    print("in textFieldShouldBeginEditing()")
+    return true
+  }
+  
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    
+    if let amount = Double((textField.text?.appending(string))!) {
+      print("amount is a Double: \(amount)")
+      //amountField.text = String(amount)
+      stepper.value = amount
+      stepperValue.text = String(stepper.value)
+      print("stepper amount is now \(stepper.value)")
+    } else {
+      print("text field can't be converted to Double: \(textField.text)")
+    }
+    
+    return true
     
   }
 
