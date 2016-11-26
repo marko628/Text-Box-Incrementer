@@ -46,7 +46,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
   
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     
-    if let amount = Double((textField.text?.appending(string))!) {
+    let myString = textField.text as NSString?
+    
+    if let amount = Double((myString?.replacingCharacters(in: range, with: string))!) {
       print("amount is a Double: \(amount)")
       //amountField.text = String(amount)
       stepper.value = amount
