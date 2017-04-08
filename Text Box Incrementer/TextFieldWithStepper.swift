@@ -14,29 +14,12 @@ class TextFieldWithStepper: NSObject, UITextFieldDelegate {
   var stepper: UIStepper!
   var formatter: NumberFormatter = NumberFormatter()
   
-  func format(_ number: Double) -> String? {
-    if let formattedValue = formatter.string(from: number as NSNumber) {
-      return formattedValue
-    } else {
-      return nil
-    }
-  }
-  
   // MARK: Text Field Delegates
   func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
     print("in textFieldDidEndEditing()")
-    // set field to formatted stepper value if field was left blank
-    textField.text = format(stepper.value)
-  }
-  
-  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-    print("in textFieldShouldEndEditing()")
-    return true
-  }
-  
-  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-    print("in textFieldShouldBeginEditing()")
-    return true
+    // set field to formatted stepper value in case text field was left blank or value is outside
+    // stepper bounds
+    textField.text = formatter.string(from: stepper.value as NSNumber)
   }
   
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -59,7 +42,7 @@ class TextFieldWithStepper: NSObject, UITextFieldDelegate {
     
     if let amount = Double(after!) {
       print("amount is a Double: \(amount)")
-      stepper.value = amount
+      stepper.value = Double(formatter.string(from: amount as NSNumber)!)!
       print("stepper amount is now \(stepper.value)")
     } else {
       print("text field can't be converted to Double: \(after!)")

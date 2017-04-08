@@ -19,46 +19,49 @@ class ViewController: UIViewController {
   
   @IBAction func stepperValueChanged(_ sender: UIStepper) {
     print("stepper changed. value is \(stepper.value)")
-    
-    if let formattedValue = format(stepper.value) {
-      amountField.text = formattedValue
-      stepperValue.text = formattedValue
-    }
+    updateWithFormattedStepperValue()
   }
   
   @IBAction func stepperEditingChanged(_ sender: UIStepper) {
     print("in stepperEditingChanged")
   }
   
+  @IBAction func amountFieldEditingChanged(_ sender: UITextField) {
+    print("in amountFieldEditingChanged")
+    //stepperValue.text = amountField.text
+  }
+  
+  @IBAction func amountFieldEditingDidEnd(_ sender: UITextField) {
+    print("in amountFieldEditingDidEnd")
+    stepperValue.text = amountField.text
+  }
+  
+  
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     configureFormatter()
-    
-    if let formattedValue = format(stepper.value) {
-      print("formatted value is \(formattedValue)")
-      amountField.text = formattedValue
-      stepperValue.text = formattedValue
-    }
+    updateWithFormattedStepperValue()
 
     delegate.stepper = stepper
     delegate.formatter = formatter
     amountField.delegate = delegate
+    
     print("delegate is \(amountField.delegate)")
   }
   
-  func format(_ number: Double) -> String? {
-    if let formattedValue = formatter.string(from: stepper.value as NSNumber) {
-      return formattedValue
-    } else {
-      return nil
-    }
-  }
-  
   func configureFormatter() {
-    formatter.maximumFractionDigits = 2
-    formatter.minimumFractionDigits = 0
+    formatter.maximumFractionDigits = 5
+    formatter.minimumFractionDigits = 2
     formatter.minimumIntegerDigits = 1
   }
   
+  func updateWithFormattedStepperValue() {
+    if let formattedValue = formatter.string(from: stepper.value as NSNumber) {
+      print("formatted value is \(formattedValue)")
+      amountField.text = formattedValue
+      stepperValue.text = formattedValue
+    }
+  }
 }

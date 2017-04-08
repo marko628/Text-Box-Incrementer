@@ -36,6 +36,11 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="amountFieldEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="GUD-LI-cDI"/>
+                                    <action selector="amountFieldEditingDidEnd:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="wKH-N2-Z7Q"/>
+                                    <action selector="amountFieldValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="1O5-VT-4gR"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Scratch Area" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RY8-6S-DNm">
                                 <rect key="frame" x="112.5" y="404" width="150" height="30"/>
