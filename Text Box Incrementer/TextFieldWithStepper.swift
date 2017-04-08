@@ -14,12 +14,14 @@ class TextFieldWithStepper: NSObject, UITextFieldDelegate {
   var stepper: UIStepper!
   var formatter: NumberFormatter = NumberFormatter()
   
-  // MARK: Text Field Delegates
-  func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
-    print("in textFieldDidEndEditing()")
+  // MARK: Text Field Delegate Functions
+  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    print("in textFieldShouldEndEditing()")
     // set field to formatted stepper value in case text field was left blank or value is outside
     // stepper bounds
     textField.text = formatter.string(from: stepper.value as NSNumber)
+    
+    return true
   }
   
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -35,7 +37,7 @@ class TextFieldWithStepper: NSObject, UITextFieldDelegate {
     }
     
     // allows field to temporarily contain a single hyphen while editing, typically 
-    // while user is typing a negative number
+    // while user is entering or editing a negative number
     if after! == "-" {
       return true
     }

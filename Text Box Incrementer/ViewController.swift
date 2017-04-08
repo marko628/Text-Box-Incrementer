@@ -36,8 +36,6 @@ class ViewController: UIViewController {
     stepperValue.text = amountField.text
   }
   
-  
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
