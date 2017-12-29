@@ -26,14 +26,14 @@ class TextFieldWithStepper: NSObject, UITextFieldDelegate {
   }
   
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    print("in textField(_:shouldChangeCharactersIn:replacementString:). String before replacement is \(textField.text). Replacement string is \"\(string)\". Range is \(range.location) \(range.length).")
+    print("in textField(_:shouldChangeCharactersIn:replacementString:). String before replacement is \(String(describing: textField.text)). Replacement string is \"\(string)\". Range is \(range.location) \(range.length).")
     
     let before = textField.text as NSString?
     let after = before?.replacingCharacters(in: range, with: string)
-    print("text after replacement is \(after)")
+    print("text after replacement is \(String(describing: after))")
     
     // allows field to be blank temporarily while user is editing
-    guard after?.characters.count != 0 else {
+    guard after?.count != 0 else {
       return true
     }
     

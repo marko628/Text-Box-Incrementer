@@ -51,7 +51,7 @@ class ViewController: UIViewController {
     delegate.formatter = formatter
     amountField.delegate = delegate
     
-    print("delegate is \(amountField.delegate)")
+    print("delegate is \(String(describing: amountField.delegate))")
   }
   
   func configureFormatter() {
