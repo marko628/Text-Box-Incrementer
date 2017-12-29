@@ -17,6 +17,7 @@ class TextFieldWithStepper: NSObject, UITextFieldDelegate {
   // MARK: Text Field Delegate Functions
   func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
     print("in textFieldShouldEndEditing()")
+    
     // set field to formatted stepper value in case text field was left blank or value is outside
     // stepper bounds
     textField.text = formatter.string(from: stepper.value as NSNumber)
@@ -52,7 +53,4 @@ class TextFieldWithStepper: NSObject, UITextFieldDelegate {
     }
     return true
   }
-  
-  
-  
 }

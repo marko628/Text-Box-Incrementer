@@ -10,17 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
   
+  // text field and connected stepper - required IBOutlets
   @IBOutlet weak var amountField: UITextField!
   @IBOutlet weak var stepper: UIStepper!
+  
   @IBOutlet weak var stepperValue: UILabel!
   
   let delegate = TextFieldWithStepper()
   let formatter = NumberFormatter()
   
+  // stepper value changed - required IBAction
   @IBAction func stepperValueChanged(_ sender: UIStepper) {
     print("stepper changed. value is \(stepper.value)")
     updateWithFormattedStepperValue()
   }
+  
   
   @IBAction func stepperEditingChanged(_ sender: UIStepper) {
     print("in stepperEditingChanged")
@@ -31,6 +35,7 @@ class ViewController: UIViewController {
     //stepperValue.text = amountField.text
   }
   
+  // text field editing did end - required IBAction
   @IBAction func amountFieldEditingDidEnd(_ sender: UITextField) {
     print("in amountFieldEditingDidEnd")
     stepperValue.text = amountField.text
